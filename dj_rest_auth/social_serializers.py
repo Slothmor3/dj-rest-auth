@@ -65,7 +65,8 @@ class TwitterLoginSerializer(serializers.Serializer):
             'oauth_token_secret': token_secret,
         }
         token = SocialToken(token=access_token, token_secret=token_secret)
-        token.app = app
+        if app.id:
+            token.app = app
 
         try:
             login = self.get_social_login(adapter, app, token, access_token)
@@ -131,7 +132,8 @@ class MicrosoftLoginSerializer(serializers.Serializer):
         access_token = attrs.get('accessToken')
 
         token = SocialToken(token=access_token)
-        token.app = app
+        if app.id:
+            token.app = app
 
         try:
             login = self.get_social_login(adapter, app, token, access_token)

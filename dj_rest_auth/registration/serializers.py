@@ -152,6 +152,8 @@ class SocialLoginSerializer(serializers.Serializer):
 
         social_token = adapter.parse_token(tokens_to_parse)
         social_token.app = app
+        if app.id:
+            social_token.app = app
 
         try:
             if adapter.provider_id == 'google' and not code:
